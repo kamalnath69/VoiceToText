@@ -1,23 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+// import React from "react";
+// import Scorm from "./Scorm";
+
+// const App = () => {
+//   return (
+//     <div>
+//       <h1>SCORM Integration</h1>
+//       <Scorm />
+//     </div>
+//   );
+// };
+
+// export default App;
+
+
+// App.js
+
+// import React from 'react';
+// import VideoPlayer from './VideoPlayer';
+
+// const App = () => {
+//   const videoUrl = 'https://testvideo-1bd7.onrender.com/manifest.mpd'; // Update with your video URL
+
+//   return (
+//     <div>
+//       <h1>Video Player</h1>
+//       <VideoPlayer url={videoUrl} />
+//     </div>
+//   );
+// };
+
+// export default App;
+
+import React from 'react';
+import VoicetoText from './VoicetoText';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <VoicetoText />
     </div>
   );
 }
