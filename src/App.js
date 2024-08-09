@@ -37,7 +37,7 @@ import VoicetoText from './VoicetoText';
 function App() {
   return (
     <div className="App">
-      <VoicetoText />
+      <VoicetoText/>
     </div>
   );
 }

@@ -47,21 +47,26 @@ const VoiceToText = () => {
     };
 
     recognitionInstance.onend = () => {
-      setIsListening(false); // Reset listening state when recognition ends
+      // Prevent recognition from stopping if it was not manually stopped
+      if (isListening) {
+        recognitionInstance.start(); // Restart recognition automatically if still listening
+      }
     };
 
     setRecognition(recognitionInstance);
-  }, []);
+  }, [isListening]);
 
   const startListening = () => {
     if (recognition && !isListening) {
       recognition.start();
+      setIsListening(true);
     }
   };
 
   const stopListening = () => {
     if (recognition && isListening) {
       recognition.stop();
+      setIsListening(false);
     }
   };
 
@@ -82,7 +87,7 @@ const VoiceToText = () => {
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
       <h1>Voice to Text Conversion</h1>
-      <button onClick={isListening ? stopListening : startListening}>
+      <button id='button' onClick={isListening ? stopListening : startListening}>
         {isListening ? '🎤' : '🎙️'}
       </button>
       <p style={{ marginTop: '20px', fontSize: '1.2rem', color: 'grey' }}>
