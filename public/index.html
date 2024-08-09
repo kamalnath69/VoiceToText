@@ -24,20 +24,6 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-      <script type="text/javascript">
-  window.addEventListener('message', function(event) {
-    if (event.origin !== 'http://localhost:3001') return; // Adjust this according to your React app's origin
-
-    const message = event.data;
-    console.log('Message from parent window:kkk', message);
-
-    if (message === 'LMS content loaded') {
-      console.log('LMS content is ready');
-      // Add any additional handling logic here
-    }
-  });
-</script>
-
     <title>React App</title>
   </head>
   <body>
