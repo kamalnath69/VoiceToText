@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import "./Vp.css"
+import "./Vp.css";
 
 const VoiceToText = () => {
   const [isListening, setIsListening] = useState(false);
@@ -39,35 +39,39 @@ const VoiceToText = () => {
 
     recognitionInstance.onerror = (event) => {
       console.error(event.error);
+      setIsListening(false); // Reset listening state on error
+    };
+
+    recognitionInstance.onstart = () => {
+      setIsListening(true);  // Set listening state when recognition starts
+    };
+
+    recognitionInstance.onend = () => {
+      setIsListening(false); // Reset listening state when recognition ends
     };
 
     setRecognition(recognitionInstance);
   }, []);
 
   const startListening = () => {
-    if (recognition) {
+    if (recognition && !isListening) {
       recognition.start();
-      setIsListening(true);
     }
   };
 
   const stopListening = () => {
-    if (recognition) {
+    if (recognition && isListening) {
       recognition.stop();
-      setIsListening(false);
     }
   };
 
   // Function to format the transcript into specific phrases or sentences
   const autoPhrase = (text) => {
-    // Example of simple auto-phrasing rules:
     text = text.replace(/\s*and\s*/gi, ' and ');
     text = text.replace(/\s*but\s*/gi, ' but ');
-    
-    // Capitalize the first letter of each sentence
+
     text = text.replace(/(^\s*\w|[\.\!\?]\s*\w)/g, (c) => c.toUpperCase());
     
-    // Example of ending each sentence with a period if not already present
     if (text && !/[.!?]$/.test(text.trim())) {
       text = text.trim() + '.';
     }
@@ -78,10 +82,12 @@ const VoiceToText = () => {
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
       <h1>Voice to Text Conversion</h1>
-      <h3>Tap to Speak</h3>
       <button onClick={isListening ? stopListening : startListening}>
         {isListening ? '🎤' : '🎙️'}
       </button>
+      <p style={{ marginTop: '20px', fontSize: '1.2rem', color: 'grey' }}>
+        {isListening ? 'Listening...' : 'Tap to Speak'}
+      </p>
       <p style={{ marginTop: '20px', fontSize: '1.2rem' }}>{transcript}</p>
     </div>
   );
